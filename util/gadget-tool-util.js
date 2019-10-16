@@ -1,7 +1,9 @@
 const http = require('./http.js');
 
 module.exports = {
-    endPoints = gadgetEndPoints
+    endPoints = gadgetEndPoints,
+    createSendDirective = createSendDirective,
+    createStartEventHandlerDirective = createStartEventHandlerDirective
 }
 
 async function gadgetEndPoints (handlerInput) {
@@ -32,6 +34,25 @@ async function createSendDirective(name, namespace, endPointId, payload) {
     }
 }
 
-async function gadgetEventHandlerDirective(names, namespaces, token, durationMs, filterMatchAction, expirationPayload) {
-    
+async function createStartEventHandlerDirective(names, nameSpaces, token, filterMatchAction, durationMs, expirationPayload) {
+    expirationPayload = expirationPayload || {};
+    durationMs = durationMs || 90000;
+    let nameFilters = names.flatMap( name => [{ '==': [{ 'var': 'header.name' }, name]}]);
+    let nameSpaceFilters = nameSpaces.flatMap( nameSpace => [{ '==': [{ 'var': 'header.namespace' }, nameSpace]}]);
+    let filters = nameFilters + nameSpaceFilters;
+    let filterExpression = {
+        'and': filters
+    };
+    return {
+        type: "CustomInterfaceController.StartEventHandler",
+        token: token,
+        eventFilter: {
+            filterExpression: filterExpression,
+            filterMatchAction: filterMatchAction
+        },
+        expiration: {
+            durationInMilliseconds: durationMs,
+            expirationPayload: expirationPayload
+        }
+    }
 }
