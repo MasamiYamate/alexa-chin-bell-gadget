@@ -2,9 +2,16 @@ const gadgetDirective = require('../directive/gadgetDirectiveFactory.js');
 const language = require('../language/manager.js');
 
 module.exports = {
-    launchHandler = launchHandler
+    launchHandler: launchHandler,
+    helpHandler: helpHandler
 }
 
+/**
+ * LaunchHandler
+ *
+ * @param {*} handlerInput
+ * @returns レスポンス
+ */
 async function launchHandler (handlerInput) {
     // 最初にgadgetとの接続確認を行う
     if (!gadgetUtil.connectGadgets(handlerInput)) {
@@ -27,5 +34,17 @@ async function launchHandler (handlerInput) {
     return handlerInput.responseBuilder
         .speak(language.speekText('LAUNCH_RESPONSE'))
         .addDirective(sendGadgetDirective)
+        .getResponse();
+}
+
+/**
+ *　HelpHandler
+ *
+ * @param {*} handlerInput
+ * @returns
+ */
+async function helpHandler (handlerInput) {
+    return handlerInput.responseBuilder
+        .speak(language.speekText('HELP_RESPONSE'))
         .getResponse();
 }

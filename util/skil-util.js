@@ -1,6 +1,7 @@
 module.exports = {
     checkIntentTypeName: checkIntentTypeName,
-    slotValue: slotValue
+    slotValue: slotValue,
+    parseToTimeString: parseToTimeString
 }
 
 //インテントタイプ、インテント名が一致しているか確認し返却します
@@ -61,4 +62,31 @@ function slotValue(handlerInput, slotName, isDebugMode) {
         }
     }
     return null;
+}
+
+function parseToTimeString (amazonTimeValue) {
+    let timeStringValue = null;
+    let timeRange = null;
+
+    switch (amazonTimeValue) {
+        case 'MO':
+            // 午前
+            timeRange = 'Morning';
+            break;
+        case 'AF':
+            // 午後
+            timeRange = 'Afternoon';
+            break;
+        case 'EV':
+            // 晩
+            timeRange = 'Evening';
+            break;
+        case 'NI':
+            timeRange = 'Night';
+            break;
+        default:
+            timeStringValue = amazonTimeValue;
+            break;
+    }
+    return [timeStringValue, timeRange];
 }

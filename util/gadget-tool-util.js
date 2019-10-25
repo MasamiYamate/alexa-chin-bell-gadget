@@ -13,6 +13,12 @@ module.exports = {
     createStopEventHandlerDirective = createStopEventHandlerDirective
 }
 
+/**
+ * Alexaガジェットと接続し、結果を取得する
+ *
+ * @param {*} handlerInput
+ * @returns Bool 接続結果
+ */
 async function connectGadgets (handlerInput) {
     let isConnected = false;
     let endPointIdsResponse = await gadgetEndPoints(handlerInput);
@@ -23,6 +29,12 @@ async function connectGadgets (handlerInput) {
     return isConnected;
 }
 
+/**
+ *　接続されているAlexaガジェットのエンドポイントを取得する
+ *
+ * @param {*} handlerInput
+ * @returns EndPointの配列 [String]
+ */
 async function gadgetEndPoints (handlerInput) {
     let { context } = handlerInput.requestEnvelope;
     let { apiEndpoint, apiAccessToken } = context.System;
@@ -36,6 +48,12 @@ async function gadgetEndPoints (handlerInput) {
     return result;
 }
 
+/**
+ * 接続されているガジェットのEndPointをsessionAttributeに登録する
+ *
+ * @param {*} handlerInput
+ * @param {[String]} endPointIds
+ */
 async function setEndPoints(handlerInput, endPointIds) {
     if (!endPointIds) {
         return;
@@ -46,6 +64,12 @@ async function setEndPoints(handlerInput, endPointIds) {
     attributesManager.setSessionAttributes(sessionAttributes);
 }
 
+/**
+ * sessionAttributeに登録されているセッショントークンを取得する
+ *
+ * @param {*} handlerInput
+ * @returns 登録されているToken
+ */
 function sessionToken (handlerInput) {
     const attributesManager = handlerInput.attributesManager;
     let sessionAttributes = attributesManager.getSessionAttributes();
@@ -55,15 +79,27 @@ function sessionToken (handlerInput) {
     return null;
 }
 
+/**
+ * sessionTokenを新規に生成し、sesstionAttributeに登録する
+ *
+ * @param {*} handlerInput
+ */
 function setSessionToken (handlerInput) {
     const attributesManager = handlerInput.attributesManager;
     let sessionAttributes = attributesManager.getSessionAttributes();
     sessionAttributes.token = uuid();
     attributesManager.setSessionAttributes(sessionAttributes);
-
 }
 
-
+/**
+ * ガジェットからマッチング結果を取得する
+ *
+ * @param {*} handlerInput
+ * @param {*} name
+ * @param {*} nameSpace
+ * @param {*} eventIndex
+ * @returns 判定結果
+ */
 async function matchResponseHandler(handlerInput, name, nameSpace, eventIndex) {
     let { request } = handlerInput.requestEnvelope;
     let customEvents = request.events;
@@ -85,6 +121,15 @@ async function matchResponseHandler(handlerInput, name, nameSpace, eventIndex) {
     return false;
 }
 
+/**
+ * ガジェットに送付するdirectiveを生成します
+ *
+ * @param {*} name
+ * @param {*} namespace
+ * @param {*} endPointId
+ * @param {*} payload
+ * @returns 送付するDerective
+ */
 async function createSendDirective(name, namespace, endPointId, payload) {
     payload = payload || {};
     return {
@@ -100,6 +145,17 @@ async function createSendDirective(name, namespace, endPointId, payload) {
     }
 }
 
+/**
+ * ガジェットからのEventを監視するdirectiveを生成する
+ *
+ * @param {*} names
+ * @param {*} nameSpaces
+ * @param {*} token
+ * @param {*} filterMatchAction
+ * @param {*} durationMs
+ * @param {*} expirationPayload
+ * @returns
+ */
 function createStartEventHandlerDirective(names, nameSpaces, token, filterMatchAction, durationMs, expirationPayload) {
     expirationPayload = expirationPayload || {};
     durationMs = durationMs || 90000;
