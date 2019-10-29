@@ -8,6 +8,7 @@ module.exports = {
     sessionToken = sessionToken,
     setSessionToken = setSessionToken,
     matchResponseHandler = matchResponseHandler,
+    getPayload = getPayload,
     createSendDirective = createSendDirective,
     createStartEventHandlerDirective = createStartEventHandlerDirective,
     createStopEventHandlerDirective = createStopEventHandlerDirective
@@ -119,6 +120,22 @@ async function matchResponseHandler(handlerInput, name, nameSpace, eventIndex) {
         }
     }
     return false;
+}
+
+/**
+ * ガジェットからのResponseに含まれるPayloadを取得する
+ *
+ * @param {*} handlerInput
+ * @param {*} eventIndex
+ */
+async function getPayload (handlerInput, eventIndex) {
+    eventIndex = eventIndex | 0;
+    let { request } = handlerInput.requestEnvelope;
+    if (eventIndex < request.events.length) {
+        let customEvent = request.events[eventIndex];
+        return customEvent.payload;
+    }
+    return null;
 }
 
 /**

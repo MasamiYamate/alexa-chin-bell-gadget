@@ -22,7 +22,7 @@ async function launchHandler (handlerInput) {
     }
     // ガジェットと接続が確認できた場合
     // 接続されているEndpoint一覧を取得します
-    let endPoints = gadgetUtil.gadgetEndPoints(handlerInput);
+    let endPoints = await gadgetUtil.gadgetEndPoints(handlerInput);
     // sessionAttributeにEndpoint一覧を登録します
     gadgetUtil.setEndPoints(handlerInput, endPoints);
 
