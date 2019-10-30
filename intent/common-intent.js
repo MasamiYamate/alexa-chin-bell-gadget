@@ -3,7 +3,8 @@ const language = require('../language/manager.js');
 
 module.exports = {
     launchHandler: launchHandler,
-    helpHandler: helpHandler
+    helpHandler: helpHandler,
+    errorHandler: errorHandler
 }
 
 /**
@@ -46,5 +47,19 @@ async function launchHandler (handlerInput) {
 async function helpHandler (handlerInput) {
     return handlerInput.responseBuilder
         .speak(language.speekText('HELP_RESPONSE'))
+        .withShouldEndSession(false)
+        .getResponse();
+}
+
+/**
+ *　ErrorHandler
+ *
+ * @param {*} handlerInput
+ * @returns
+ */
+async function errorHandler (handlerInput) {
+    return handlerInput.responseBuilder
+        .speak("エラー")
+        .withShouldEndSession(true)
         .getResponse();
 }

@@ -29,7 +29,7 @@ function initialize(endPointId) {
  */
 function start(endPointId, dateString) {
     dateString = dateString | "";
-    let name = 'StartRequest';
+    let name = 'start';
     let sendPayload = {
         date: dateString
     }
