@@ -3,11 +3,11 @@ const gadgetUtil = require('../util/gadget-tool-util');
 const nameSpace = 'Custom.ChinBell'
 
 module.exports = {
-    initialize = initialize,
-    blanc = blanc,
-    start = start,
-    end = end,
-    sessionPersistence = sessionPersistence
+    initialize: initialize,
+    blanc: blanc,
+    start: start,
+    end: end,
+    sessionPersistence: sessionPersistence
 }
 
 /**
@@ -54,7 +54,7 @@ function sessionPersistence(token, expirationPayload) {
  * @param {*} endPointId
  * @returns
  */
-function blancRequest(endPointId) {
+function blanc(endPointId) {
     let name = 'BlancRequest';
     return gadgetUtil.createSendDirective(name, nameSpace, endPointId, null);
 }

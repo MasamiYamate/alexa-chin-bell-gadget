@@ -5,10 +5,10 @@ const gadgetDirective = require('../directive/gadgetDirectiveFactory.js');
 const language = require('../language/manager.js');
 
 module.exports = {
-    timeSelectHandler = timeSelectHandler,
-    gadgetSpeakResponse = gadgetSpeakResponse,
-    sessionPersistenceResponse = sessionPersistenceResponse,
-    sessionEndResponse = sessionEndResponse
+    timeSelectHandler: timeSelectHandler,
+    gadgetSpeakResponse: gadgetSpeakResponse,
+    sessionPersistenceResponse: sessionPersistenceResponse,
+    sessionEndResponse: sessionEndResponse
 }
 
 function timeSelectHandler (handlerInput) {

@@ -2,16 +2,16 @@ const http = require('./http.js');
 const uuid = require('uuid/v4');
 
 module.exports = {
-    connectGadgets = connectGadgets,
-    gadgetEndPoints = gadgetEndPoints,
-    setEndPoints = setEndPoints,
-    sessionToken = sessionToken,
-    setSessionToken = setSessionToken,
-    matchResponseHandler = matchResponseHandler,
-    getPayload = getPayload,
-    createSendDirective = createSendDirective,
-    createStartEventHandlerDirective = createStartEventHandlerDirective,
-    createStopEventHandlerDirective = createStopEventHandlerDirective
+    connectGadgets: connectGadgets,
+    gadgetEndPoints: gadgetEndPoints,
+    setEndPoints: setEndPoints,
+    sessionToken: sessionToken,
+    setSessionToken: setSessionToken,
+    matchResponseHandler: matchResponseHandler,
+    getPayload: getPayload,
+    createSendDirective: createSendDirective,
+    createStartEventHandlerDirective: createStartEventHandlerDirective,
+    createStopEventHandlerDirective: createStopEventHandlerDirective
 }
 
 /**

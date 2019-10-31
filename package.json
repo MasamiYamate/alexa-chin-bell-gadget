@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ask-sdk": "^2.7.0",
     "ask-sdk-core": "^2.7.0",
     "i18next": "^18.0.0",
     "i18next-sprintf-postprocessor": "^0.2.2",

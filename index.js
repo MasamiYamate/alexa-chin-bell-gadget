@@ -6,6 +6,8 @@ const gadgetUtil = require('./util/gadget-tool-util');
 const commonIntent = require('./intent/common-intent');
 const timerIntent = require('./intent/time-intent');
 
+const language = require('./language/manager.js');
+
 let skill;
 exports.handler = function(event, context) {
     if (!skill) {
@@ -18,8 +20,8 @@ exports.handler = function(event, context) {
                 handler.SessionEndedRequestHandler,
                 handler.SkillEndHandler
             )
-            // .addRequestInterceptors(LocalizationInterceptor, handler.RequestInterceptor)
-            // .addResponseInterceptors(handler.ResponseInterceptor)
+            .addRequestInterceptors(language.localizationInterceptor, handler.RequestInterceptor)
+            .addResponseInterceptors(handler.ResponseInterceptor)
             .addErrorHandlers(handler.ErrorHandler)
             .create();
     }

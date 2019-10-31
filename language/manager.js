@@ -6,8 +6,8 @@ const languageStrings = {
 };
 
 module.exports = {
-    localizationInterceptor = localizationInterceptor,
-    speekText = speekText
+    localizationInterceptor: localizationInterceptor,
+    speekText: speekText
 }
 
 const localizationInterceptor = {
