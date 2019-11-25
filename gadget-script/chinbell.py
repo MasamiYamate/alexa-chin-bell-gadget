@@ -12,11 +12,6 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class ChinBell(AlexaGadget):
-    """
-    An Alexa Gadget that cycles through colors using RGB LED and
-    reports the color to the skill upon button press
-    """
-
     def __init__(self):
         super().__init__()
 
